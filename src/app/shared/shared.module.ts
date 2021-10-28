@@ -5,6 +5,8 @@ import { MediaPlayerComponent } from './components/media-player/media-player.com
 import { HeaderUserComponent } from './components/header-user/header-user.component';
 import { CardPlayerComponent } from './components/card-player/card-player.component';
 import { GenericSectionComponent } from './components/generic-section/generic-section.component';
+import { PlaylistHeaderComponent } from './components/playlist-header/playlist-header.component';
+import { PlaylistBodyComponent } from './components/playlist-body/playlist-body.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +15,8 @@ import { GenericSectionComponent } from './components/generic-section/generic-se
     HeaderUserComponent,
     CardPlayerComponent,
     GenericSectionComponent,
+    PlaylistHeaderComponent,
+    PlaylistBodyComponent,
   ],
   imports: [CommonModule],
   exports: [
@@ -21,6 +25,8 @@ import { GenericSectionComponent } from './components/generic-section/generic-se
     HeaderUserComponent,
     CardPlayerComponent,
     GenericSectionComponent,
+    PlaylistHeaderComponent,
+    PlaylistBodyComponent,
   ],
 })
 export class SharedModule {}

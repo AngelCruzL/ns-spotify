@@ -1,10 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+import { FavoritePageComponent } from './pages/favorite-page/favorite-page.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: FavoritePageComponent,
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class FavoritesRoutingModule { }
+export class FavoritesRoutingModule {}
