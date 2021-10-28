@@ -10,20 +10,12 @@ import * as dataRaw from '@data/tracks.json';
   styleUrls: ['./tracks-page.component.scss'],
 })
 export class TracksPageComponent implements OnInit {
-  mockTrackList: Array<TrackModel> = [
-    {
-      _id: 1,
-      album: 'Test',
-      cover: '',
-      name: 'This is a name',
-      url: '',
-    },
-  ];
+  mockTrackList: Array<TrackModel> = [];
 
   constructor() {}
 
   ngOnInit(): void {
     const { data } = (dataRaw as any).default;
-    console.log(data);
+    this.mockTrackList = data;
   }
 }
