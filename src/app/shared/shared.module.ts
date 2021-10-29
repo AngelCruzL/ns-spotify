@@ -10,6 +10,8 @@ import { GenericSectionComponent } from './components/generic-section/generic-se
 import { PlaylistHeaderComponent } from './components/playlist-header/playlist-header.component';
 import { PlaylistBodyComponent } from './components/playlist-body/playlist-body.component';
 
+import { OrderListPipe } from './pipe/order-list.pipe';
+
 @NgModule({
   declarations: [
     SidebarComponent,
@@ -19,6 +21,7 @@ import { PlaylistBodyComponent } from './components/playlist-body/playlist-body.
     GenericSectionComponent,
     PlaylistHeaderComponent,
     PlaylistBodyComponent,
+    OrderListPipe,
   ],
   imports: [CommonModule, RouterModule],
   exports: [
@@ -29,6 +32,7 @@ import { PlaylistBodyComponent } from './components/playlist-body/playlist-body.
     GenericSectionComponent,
     PlaylistHeaderComponent,
     PlaylistBodyComponent,
+    OrderListPipe,
   ],
 })
 export class SharedModule {}
