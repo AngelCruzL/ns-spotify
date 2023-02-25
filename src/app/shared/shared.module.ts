@@ -12,6 +12,8 @@ import { PlaylistBodyComponent } from './components/playlist-body/playlist-body.
 
 import { OrderListPipe } from './pipe/order-list.pipe';
 
+import { ImgBrokenDirective } from './directives/img-broken.directive';
+
 @NgModule({
   declarations: [
     SidebarComponent,
@@ -22,6 +24,7 @@ import { OrderListPipe } from './pipe/order-list.pipe';
     PlaylistHeaderComponent,
     PlaylistBodyComponent,
     OrderListPipe,
+    ImgBrokenDirective,
   ],
   imports: [CommonModule, RouterModule],
   exports: [
@@ -33,6 +36,7 @@ import { OrderListPipe } from './pipe/order-list.pipe';
     PlaylistHeaderComponent,
     PlaylistBodyComponent,
     OrderListPipe,
+    ImgBrokenDirective,
   ],
 })
 export class SharedModule {}
