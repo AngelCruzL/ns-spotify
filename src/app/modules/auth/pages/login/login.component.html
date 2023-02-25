@@ -46,6 +46,8 @@
         <a class="link" href="">¿Se te ha olvidado la contraseña?</a>
       </div>
 
+      <div *ngIf="sessionError">Ocurrió un error con tu email o password</div>
+
       <div class="form-action">
         <button [disabled]="loginForm.invalid" class="login social-btn">
           Iniciar sesión
