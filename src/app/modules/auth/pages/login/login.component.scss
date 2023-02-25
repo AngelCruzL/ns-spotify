@@ -32,16 +32,15 @@
     font-size: var(--font-size-2);
     border-radius: var(--border-radius-2);
     box-shadow: var(--shadow-1);
-    border: solid 1px var(--color-4);
     background-color: var(--color-4);
     font-weight: 600;
 
-    .social-btn.btn-fb {
+    &.btn-fb {
       background-color: #3a61b3;
       color: var(--color-4);
     }
 
-    .social-btn.btn-apple {
+    &.btn-apple {
       background-color: #1a1a1a;
       color: var(--color-4);
     }
@@ -64,14 +63,18 @@
       display: flex;
       justify-content: flex-start;
       flex-direction: column;
-    }
 
-    .form-group input {
-      border: solid 1px #e7e7e7;
-      border-radius: var(--border-radius-1);
-      height: 30px;
-      padding: 0.25rem 0.5rem;
-      font-size: 90%;
+      &:not(:last-child) {
+        margin-bottom: 1rem;
+      }
+
+      input {
+        border: solid 1px #e7e7e7;
+        border-radius: var(--border-radius-1);
+        height: 30px;
+        padding: 0.25rem 0.5rem;
+        font-size: 90%;
+      }
     }
 
     label {
