@@ -1,20 +1,38 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
 
-import * as dataRaw from '@core/../data/tracks.json';
+import { HttpClient } from '@angular/common/http';
 import { TrackModel } from '@core/models/tracks.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TrackService {
-  dataTracksTrending$: Observable<TrackModel[]>;
-  dataTracksRandom$: Observable<TrackModel[]>;
+  readonly #apiUrl = environment.api;
 
-  constructor() {
-    const { data } = (dataRaw as any).default;
+  constructor(private httpClient: HttpClient) {}
 
-    this.dataTracksTrending$ = of(data);
-    this.dataTracksRandom$ = of(data);
+  #skipTrackById(
+    trackList: TrackModel[],
+    trackId: number
+  ): Promise<TrackModel[]> {
+    return new Promise((resolve, reject) => {
+      const newTrackList = trackList.filter(track => track._id !== trackId);
+      resolve(newTrackList);
+    });
+  }
+
+  getAllTracks(): Observable<TrackModel[]> {
+    return this.httpClient
+      .get<TrackModel[]>(`${this.#apiUrl}/tracks`)
+      .pipe(map(({ data }: any) => data));
+  }
+
+  getRandomTracks(): Observable<TrackModel[]> {
+    return this.httpClient
+      .get<TrackModel[]>(`${this.#apiUrl}/tracks`)
+      .pipe(mergeMap(({ data }: any) => this.#skipTrackById(data, 4)));
   }
 }
