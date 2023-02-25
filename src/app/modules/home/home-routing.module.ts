@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HomePageComponent } from './pages/home-page/home-page.component';
-
 const routes: Routes = [
   {
     path: 'favorites',
@@ -21,6 +19,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('@modules/tracks/tracks.module').then(m => m.TracksModule),
   },
+  { path: '**', redirectTo: 'tracks' },
 ];
 
 @NgModule({

@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
 
 import { TrackModel } from '@core/models/tracks.model';
 import { TrackService } from '@modules/tracks/services/track.service';
@@ -13,21 +12,22 @@ export class TracksPageComponent implements OnInit, OnDestroy {
   tracksTrending: Array<TrackModel> = [];
   tracksRandom: Array<TrackModel> = [];
 
-  observersList$: Subscription[] = [];
-
   constructor(private trackService: TrackService) {}
 
   ngOnInit(): void {
-    this.trackService.getAllTracks().subscribe(tracks => {
-      this.tracksTrending = tracks;
-    });
-
-    this.trackService.getRandomTracks().subscribe(tracks => {
-      this.tracksRandom = tracks;
-    });
+    this.loadAllTracks();
+    this.loadRandomTracks();
   }
 
-  ngOnDestroy(): void {
-    this.observersList$.forEach(observer => observer.unsubscribe());
+  ngOnDestroy(): void {}
+
+  async loadAllTracks(): Promise<any> {
+    this.tracksTrending = await this.trackService.getAllTracks$().toPromise();
+  }
+
+  loadRandomTracks(): void {
+    this.trackService.getRandomTracks$().subscribe(tracks => {
+      this.tracksRandom = tracks;
+    });
   }
 }

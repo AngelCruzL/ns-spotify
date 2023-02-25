@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 
 import { HttpClient } from '@angular/common/http';
 import { TrackModel } from '@core/models/tracks.model';
@@ -24,15 +24,19 @@ export class TrackService {
     });
   }
 
-  getAllTracks(): Observable<TrackModel[]> {
+  getAllTracks$(): Observable<TrackModel[]> {
     return this.httpClient
       .get<TrackModel[]>(`${this.#apiUrl}/tracks`)
       .pipe(map(({ data }: any) => data));
   }
 
-  getRandomTracks(): Observable<TrackModel[]> {
-    return this.httpClient
-      .get<TrackModel[]>(`${this.#apiUrl}/tracks`)
-      .pipe(mergeMap(({ data }: any) => this.#skipTrackById(data, 4)));
+  getRandomTracks$(): Observable<TrackModel[]> {
+    return this.httpClient.get<TrackModel[]>(`${this.#apiUrl}/tracks`).pipe(
+      mergeMap(({ data }: any) => this.#skipTrackById(data, 4)),
+      catchError(({ status, statusText }) => {
+        console.table(status, statusText);
+        return of([]);
+      })
+    );
   }
 }
