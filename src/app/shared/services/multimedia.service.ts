@@ -32,6 +32,11 @@ export class MultimediaService {
     (this.audio.paused) ? this.audio.play() : this.audio.pause();
   }
 
+  seekAudio(percentage: number): void {
+    const { duration } = this.audio;
+    this.audio.currentTime = (percentage * duration) / 100;
+  }
+
   #listenAllEvents(): void {
     this.audio.addEventListener('timeupdate', this.#calculateTime, false);
     this.audio.addEventListener('playing', this.#setPlayerStatus, false);
