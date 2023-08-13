@@ -19,17 +19,17 @@
 
 <ng-template #artistZone>
   <div
-    class='artist-inside'
     *ngIf='multimediaService.trackInfo$ | async as mockCover'
+    class='artist-inside'
   >
 
     <img
-      appImgBroken
       [customImg]="
         'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/2048px-Angular_full_color_logo.svg.png'
       "
       [src]='mockCover.cover'
       alt=''
+      appImgBroken
       class='cover'
     />
     <div class='track-info'>
@@ -68,13 +68,13 @@
 
     <div class='media-linetime'>
       <div class='time'>{{ multimediaService.timeElapsed$ | async }}</div>
-<!--      <span #progressBar (click)='handlePosition($event)' class='time-progress'>-->
-<!--        <span-->
-<!--          class='time-progress-live'-->
-<!--          [style.width]="(multimediaService.playerPercentage$ | async) + '%'"-->
-<!--        >-->
-<!--        </span>-->
-<!--      </span>-->
+      <span class='time-progress'>
+        <span
+          [style.width]="(multimediaService.playerPercentage$ | async) + '%'"
+          class='time-progress-live'
+        >
+        </span>
+      </span>
       <div class='time'>{{ multimediaService.timeRemaining$ | async }}</div>
     </div>
   </div>
