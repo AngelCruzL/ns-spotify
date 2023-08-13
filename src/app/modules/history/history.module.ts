@@ -8,7 +8,6 @@ import { HistoryRoutingModule } from './history-routing.module';
 import { HistoryPageComponent } from './pages/history-page/history-page.component';
 
 @NgModule({
-  declarations: [HistoryPageComponent, SearchComponent],
-  imports: [CommonModule, HistoryRoutingModule, SharedModule, FormsModule],
+    imports: [CommonModule, HistoryRoutingModule, SharedModule, FormsModule, HistoryPageComponent, SearchComponent],
 })
 export class HistoryModule {}

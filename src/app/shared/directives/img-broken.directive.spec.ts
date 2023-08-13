@@ -5,7 +5,8 @@ import { ImgBrokenDirective } from './img-broken.directive';
 import { By } from '@angular/platform-browser';
 
 @Component({
-  template: '<img class="testing-directive" appImgBroken [src]="srcMock" alt="" />'
+    template: '<img class="testing-directive" appImgBroken [src]="srcMock" alt="" />',
+    standalone: true
 })
 class TestComponent {
   srcMock: undefined | null | string = null;
@@ -17,8 +18,8 @@ describe('ImgBrokenDirective', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ImgBrokenDirective, TestComponent]
-    });
+    imports: [ImgBrokenDirective, TestComponent]
+});
 
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;

@@ -7,7 +7,6 @@ import { TracksRoutingModule } from './tracks-routing.module';
 import { TracksPageComponent } from './pages/tracks-page/tracks-page.component';
 
 @NgModule({
-  declarations: [TracksPageComponent],
-  imports: [CommonModule, TracksRoutingModule, SharedModule],
+    imports: [CommonModule, TracksRoutingModule, SharedModule, TracksPageComponent],
 })
 export class TracksModule {}

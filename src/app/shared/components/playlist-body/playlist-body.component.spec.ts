@@ -9,8 +9,8 @@ describe('PlaylistBodyComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PlaylistBodyComponent, OrderListPipe]
-    })
+    imports: [PlaylistBodyComponent, OrderListPipe]
+})
       .compileComponents();
   });
 

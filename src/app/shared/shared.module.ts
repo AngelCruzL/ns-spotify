@@ -15,28 +15,25 @@ import { OrderListPipe } from './pipe/order-list.pipe';
 import { ImgBrokenDirective } from './directives/img-broken.directive';
 
 @NgModule({
-  declarations: [
-    SidebarComponent,
-    MediaPlayerComponent,
-    HeaderUserComponent,
-    CardPlayerComponent,
-    GenericSectionComponent,
-    PlaylistHeaderComponent,
-    PlaylistBodyComponent,
-    OrderListPipe,
-    ImgBrokenDirective,
-  ],
-  imports: [CommonModule, RouterModule],
-  exports: [
-    SidebarComponent,
-    MediaPlayerComponent,
-    HeaderUserComponent,
-    CardPlayerComponent,
-    GenericSectionComponent,
-    PlaylistHeaderComponent,
-    PlaylistBodyComponent,
-    OrderListPipe,
-    ImgBrokenDirective,
-  ],
+    imports: [CommonModule, RouterModule, SidebarComponent,
+        MediaPlayerComponent,
+        HeaderUserComponent,
+        CardPlayerComponent,
+        GenericSectionComponent,
+        PlaylistHeaderComponent,
+        PlaylistBodyComponent,
+        OrderListPipe,
+        ImgBrokenDirective],
+    exports: [
+        SidebarComponent,
+        MediaPlayerComponent,
+        HeaderUserComponent,
+        CardPlayerComponent,
+        GenericSectionComponent,
+        PlaylistHeaderComponent,
+        PlaylistBodyComponent,
+        OrderListPipe,
+        ImgBrokenDirective,
+    ],
 })
 export class SharedModule {}
