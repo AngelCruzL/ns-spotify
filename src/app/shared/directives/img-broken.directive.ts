@@ -1,14 +1,20 @@
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 
 @Directive({
-  selector: 'img[appImgBroken]',
+  selector: 'img[appImgBroken]'
 })
 export class ImgBrokenDirective {
-  @Input() customImg: string = '';
-  @HostListener('error') onError() {
-    const nativeElement: HTMLImageElement = this.hostElement.nativeElement;
-    nativeElement.src = this.customImg;
+  @Input() customImg: string | boolean = false;
+
+  constructor(private hostElement: ElementRef) {
   }
 
-  constructor(private hostElement: ElementRef) {}
+  @HostListener('error') onError() {
+    const nativeElement: HTMLImageElement = this.hostElement.nativeElement;
+    if (this.customImg && typeof this.customImg === 'string') {
+      nativeElement.src = this.customImg;
+    } else {
+      nativeElement.src = 'assets/img/placeholder.svg';
+    }
+  }
 }
