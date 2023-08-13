@@ -10,6 +10,7 @@ export class MultimediaService {
   trackInfo$: BehaviorSubject<any> = new BehaviorSubject<any>(undefined);
   timeElapsed$: BehaviorSubject<string> = new BehaviorSubject<string>('00:00');
   timeRemaining$: BehaviorSubject<string> = new BehaviorSubject<string>('-00:00');
+  playerStatus$: BehaviorSubject<string> = new BehaviorSubject<string>('paused');
   audio!: HTMLAudioElement;
 
   constructor() {
@@ -21,9 +22,41 @@ export class MultimediaService {
     });
   }
 
+  setAudio(track: TrackModel): void {
+    this.audio.src = track.url;
+    this.audio.play();
+  }
+
+  togglePlayer(): void {
+    (this.audio.paused) ? this.audio.play() : this.audio.pause();
+  }
+
   #listenAllEvents(): void {
     this.audio.addEventListener('timeupdate', this.#calculateTime, false);
+    this.audio.addEventListener('playing', this.#setPlayerStatus, false);
+    this.audio.addEventListener('play', this.#setPlayerStatus, false);
+    this.audio.addEventListener('pause', this.#setPlayerStatus, false);
+    this.audio.addEventListener('ended', this.#setPlayerStatus, false);
   }
+
+  #setPlayerStatus = (state: any) => {
+    switch (state.type) {
+      case 'playing':
+        this.playerStatus$.next('playing');
+        break;
+
+      case 'play':
+        this.playerStatus$.next('play');
+        break;
+
+      case 'ended':
+        this.playerStatus$.next('ended');
+        break;
+
+      default:
+        this.playerStatus$.next('paused');
+    }
+  };
 
   #calculateTime = (): void => {
     const { duration, currentTime } = this.audio;
@@ -40,7 +73,7 @@ export class MultimediaService {
     this.timeElapsed$.next(result);
   }
 
-  #setTimeRemaining(currentTime: number, duration:number): void {
+  #setTimeRemaining(currentTime: number, duration: number): void {
     let timeRemaining = duration - currentTime;
     const minutes = Math.floor((timeRemaining / 60) % 60);
     const seconds = Math.floor(timeRemaining % 60);
@@ -48,10 +81,5 @@ export class MultimediaService {
     const displaySeconds = seconds < 10 ? `0${seconds}` : seconds;
     const result = `-${displayMinutes}:${displaySeconds}`;
     this.timeRemaining$.next(result);
-  }
-
-  setAudio(track: TrackModel): void {
-    this.audio.src = track.url;
-    this.audio.play();
   }
 }
