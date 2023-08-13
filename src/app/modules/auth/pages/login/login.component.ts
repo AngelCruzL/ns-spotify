@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { CookieService } from 'ngx-cookie-service';
 
@@ -12,11 +12,11 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  loginForm!: FormGroup;
+  loginForm!: UntypedFormGroup;
   sessionError = false;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private authService: AuthService,
     private cookie: CookieService
   ) {}
