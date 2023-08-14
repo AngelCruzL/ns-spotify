@@ -1,18 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
+import { Router } from '@angular/router';
+import {
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 
 import { CookieService } from 'ngx-cookie-service';
 
 import { AuthService } from '@modules/auth/services/auth.service';
 import { environment } from 'src/environments/environment';
-import { NgIf } from '@angular/common';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss'],
-    standalone: true,
-    imports: [ReactiveFormsModule, NgIf],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
+  standalone: true,
+  imports: [ReactiveFormsModule, NgIf],
 })
 export class LoginComponent implements OnInit {
   loginForm!: UntypedFormGroup;
@@ -21,7 +27,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: UntypedFormBuilder,
     private authService: AuthService,
-    private cookie: CookieService
+    private cookie: CookieService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -39,12 +46,14 @@ export class LoginComponent implements OnInit {
           'tokenSession',
           tokenSession,
           environment.cookieExpiresDays,
-          '/'
+          '/',
         );
+
+        this.router.navigateByUrl('/');
       },
       error => {
         this.sessionError = true;
-      }
+      },
     );
   }
 }
