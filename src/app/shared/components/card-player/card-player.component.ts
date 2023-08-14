@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 
 import { TrackModel } from '@core/models/tracks.model';
 import { MultimediaService } from '@shared/services/multimedia.service';
@@ -12,7 +12,7 @@ import { NgClass, NgIf } from '@angular/common';
   standalone: true,
   imports: [NgIf, NgClass, ImgBrokenDirective],
 })
-export class CardPlayerComponent implements OnInit {
+export class CardPlayerComponent {
   @Input({ required: true }) mode: 'small' | 'big' = 'small';
   @Input({ required: true, alias: 'trackObject' }) track: TrackModel = {
     _id: 0,
@@ -22,11 +22,9 @@ export class CardPlayerComponent implements OnInit {
     url: '',
   };
 
-  constructor(private multimediaService: MultimediaService) {}
-
-  ngOnInit(): void {}
+  #multimediaService = inject(MultimediaService);
 
   sendTrack(track: TrackModel): void {
-    this.multimediaService.trackInfo$.next(track);
+    this.#multimediaService.trackInfoSignal.set(track);
   }
 }

@@ -1,14 +1,14 @@
 import {
   Component,
+  effect,
   ElementRef,
   inject,
-  OnInit,
   ViewChild,
 } from '@angular/core';
+import { AsyncPipe, NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
+
 import { MultimediaService } from '@shared/services/multimedia.service';
 import { ImgBrokenDirective } from '../../directives/img-broken.directive';
-import { AsyncPipe, NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
-import { customUntilDestroy } from '@core/utils/custom-until-destroy';
 
 @Component({
   selector: 'app-media-player',
@@ -17,17 +17,15 @@ import { customUntilDestroy } from '@core/utils/custom-until-destroy';
   standalone: true,
   imports: [NgTemplateOutlet, NgIf, ImgBrokenDirective, NgClass, AsyncPipe],
 })
-export class MediaPlayerComponent implements OnInit {
-  multimediaService = inject(MultimediaService);
-  customUntilDestroy = customUntilDestroy();
-
+export class MediaPlayerComponent {
   @ViewChild('progressBar') progressBar: ElementRef = new ElementRef('');
   state: string = 'paused';
+  multimediaService = inject(MultimediaService);
 
-  ngOnInit(): void {
-    this.multimediaService.playerStatus$
-      .pipe(this.customUntilDestroy())
-      .subscribe((state: string) => (this.state = state));
+  constructor() {
+    effect(() => {
+      this.state = this.multimediaService.playerStatusSignal();
+    });
   }
 
   handlePosition(event: MouseEvent) {
