@@ -1,4 +1,7 @@
 <div class='tracks-page'>
+  <div *ngIf='currentUser'><b>User:</b> {{ currentUser.name }}</div>
+  <div *ngIf='category'><b>Categoría:</b> {{ category }}</div>
+
   <!--section top (small)-->
   <app-generic-section
     [dataTracks]='tracksTrending'

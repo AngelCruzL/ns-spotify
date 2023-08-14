@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 
+import { getCurrentUser } from '@core/utils/get-current-user';
+
 export const homeRoutes: Routes = [
   {
     path: 'favorites',
@@ -15,6 +17,14 @@ export const homeRoutes: Routes = [
   },
   {
     path: 'tracks',
+    resolve: {
+      currentUser: getCurrentUser,
+    },
+    loadChildren: () =>
+      import('@modules/tracks/tracks.routes').then(m => m.tracksRoutes),
+  },
+  {
+    path: 'tracks/:category',
     loadChildren: () =>
       import('@modules/tracks/tracks.routes').then(m => m.tracksRoutes),
   },

@@ -1,7 +1,7 @@
 import { enableProdMode, importProvidersFrom } from '@angular/core';
 import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
 import { injectSessionFnInterceptor } from '@core/interceptors/inject-session-fn.interceptor';
@@ -15,7 +15,7 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideRouter(appRoutes),
+    provideRouter(appRoutes, withComponentInputBinding()),
     importProvidersFrom(BrowserModule),
     CookieService,
     provideHttpClient(withInterceptors([injectSessionFnInterceptor])),
